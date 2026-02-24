@@ -450,66 +450,6 @@
     wrap.appendChild(s);
   }
 })();
-
-/* === 3) Fake guestbook (localStorage per-browser) === */
-(function(){
-  const k = "retro_guestbook_v1";
-  const listEl = document.getElementById("gbList");
-  const form = document.getElementById("gbForm");
-  const nameEl = document.getElementById("gbName");
-  const msgEl  = document.getElementById("gbMsg");
-
-  function load(){
-    try { return JSON.parse(localStorage.getItem(k) || "[]"); }
-    catch { return []; }
-  }
-  function save(arr){
-    localStorage.setItem(k, JSON.stringify(arr.slice(0, 20)));
-  }
-  function render(){
-    const arr = load();
-    listEl.innerHTML = "";
-    for (const item of arr){
-      const card = document.createElement("div");
-      card.style.border = "2px dashed rgba(255,225,0,.55)";
-      card.style.background = "rgba(0,0,0,.45)";
-      card.style.padding = "10px";
-      card.style.fontFamily = "'Courier New', ui-monospace, monospace";
-      card.innerHTML =
-        "<div style='color:rgba(255,255,255,.9)'><b>" + esc(item.name) + "</b> <span style='color:rgba(255,255,255,.55)'>(" + esc(item.date) + ")</span></div>" +
-        "<div style='margin-top:6px; color:rgba(0,255,255,.9)'>" + esc(item.msg) + "</div>";
-      listEl.appendChild(card);
-    }
-    if (arr.length === 0){
-      const empty = document.createElement("div");
-      empty.style.fontFamily = "'Courier New', ui-monospace, monospace";
-      empty.style.color = "rgba(255,255,255,.65)";
-      empty.textContent = "No entries yet. Be the first (in this browser).";
-      listEl.appendChild(empty);
-    }
-  }
-  function esc(s){
-    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-  }
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const name = (nameEl.value || "Anonymous").trim().slice(0,40);
-    const msg  = (msgEl.value  || "").trim().slice(0,240);
-    if (!msg){
-      alert("Write a message first.");
-      return;
-    }
-    const arr = load();
-    arr.unshift({ name, msg, date: new Date().toISOString().slice(0,10) });
-    save(arr);
-    msgEl.value = "";
-    render();
-  });
-
-  render();
-})();
-
 /* === 4) Starfield (pure 90s screensaver energy) === */
 (function(){
   const c = document.getElementById("stars");
