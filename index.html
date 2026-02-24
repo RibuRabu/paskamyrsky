@@ -564,6 +564,64 @@
   tick();
 })();
 </script>
+<script>
+(function(){
+  const API_BASE = "https://autumn-glade-b588.rkallio88.workers.dev";
 
+  const listEl = document.getElementById("gbList");
+  const form = document.getElementById("gbForm");
+  const nameEl = document.getElementById("gbName");
+  const msgEl  = document.getElementById("gbMsg");
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  async function load(){
+    listEl.innerHTML = "Loading...";
+    const r = await fetch(`${API_BASE}/api/entries`);
+    const entries = await r.json();
+    render(entries);
+  }
+
+  function render(entries){
+    listEl.innerHTML = "";
+    if (!entries.length){
+      listEl.innerHTML = "<div style='opacity:.6'>No entries yet.</div>";
+      return;
+    }
+
+    for (const item of entries){
+      const div = document.createElement("div");
+      div.style.border = "2px dashed #ffe10088";
+      div.style.padding = "10px";
+      div.style.background = "rgba(0,0,0,.45)";
+      div.innerHTML =
+        "<b>" + esc(item.name) + "</b> " +
+        "<small>(" + item.created_at.slice(0,10) + ")</small><br>" +
+        esc(item.message);
+      listEl.appendChild(div);
+    }
+  }
+
+  form.addEventListener("submit", async e=>{
+    e.preventDefault();
+
+    await fetch(`${API_BASE}/api/entries`,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({
+        name:nameEl.value,
+        message:msgEl.value
+      })
+    });
+
+    msgEl.value="";
+    load();
+  });
+
+  load();
+})();
+</script>
 </body>
 </html>
