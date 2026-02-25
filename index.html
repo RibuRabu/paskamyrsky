@@ -559,16 +559,41 @@
   load();
 })();
 </script>
-  <style>
+ <style>
 #cookie {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #d2691e, #8b4513);
+  box-shadow: inset -6px -6px 0 rgba(0,0,0,.2);
   cursor: pointer;
-  animation: spin 6s linear infinite;
   z-index: 9999;
+  animation: float 12s linear infinite, spin 10s linear infinite;
+}
+
+#cookie::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #3b1f0f;
+  border-radius: 50%;
+  top: 20px;
+  left: 25px;
+  box-shadow:
+    20px 10px #3b1f0f,
+    35px 25px #3b1f0f,
+    15px 40px #3b1f0f,
+    45px 45px #3b1f0f;
+}
+
+@keyframes float {
+  0% { top: 10%; left: 10%; }
+  25% { top: 70%; left: 20%; }
+  50% { top: 40%; left: 80%; }
+  75% { top: 20%; left: 60%; }
+  100% { top: 10%; left: 10%; }
 }
 
 @keyframes spin {
@@ -579,7 +604,7 @@
 #cookieModal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.8);
+  background: rgba(0,0,0,.85);
   display: none;
   align-items: center;
   justify-content: center;
@@ -596,11 +621,8 @@
 }
 </style>
 
-<!-- 🍪 KEKSI -->
-<img id="cookie"
-src="https://upload.wikimedia.org/wikipedia/commons/7/70/Chocolate_Chip_Cookie.png">
+<div id="cookie"></div>
 
-<!-- 🍪 MODAL -->
 <div id="cookieModal">
   <div id="cookieBox">
     <h3>EVÄSTEASETUKSET</h3>
@@ -611,13 +633,8 @@ src="https://upload.wikimedia.org/wikipedia/commons/7/70/Chocolate_Chip_Cookie.p
     Ei mitään.
     </p>
 
-    <p style="margin-top:20px">
-    "Älä itke ruma lapsi,<br>
-    ei sul oo iso pää.<br>
-    Ota keksi."
-    </p>
-
-    <button onclick="closeCookie()">OK</button>
+    <button onclick="explode()">ACCEPT ALL COOKIES</button>
+    <button onclick="closeCookie()">Sulje</button>
   </div>
 </div>
 
@@ -626,8 +643,22 @@ const cookie = document.getElementById("cookie");
 const modal = document.getElementById("cookieModal");
 
 cookie.onclick = () => modal.style.display = "flex";
+
 function closeCookie(){
   modal.style.display = "none";
+}
+
+function explode(){
+  document.body.style.transition = "all .4s";
+  document.body.style.transform = "rotate(3deg) scale(1.05)";
+  document.body.style.filter = "invert(1) hue-rotate(180deg)";
+  setTimeout(() => {
+    document.body.innerHTML = `
+      <div style="display:flex;align-items:center;justify-content:center;height:100vh;background:black;color:red;font-family:Courier New;">
+        <h1>ALL COOKIES ACCEPTED.</h1>
+      </div>
+    `;
+  }, 600);
 }
 </script>
 </body>
