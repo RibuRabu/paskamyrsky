@@ -559,5 +559,76 @@
   load();
 })();
 </script>
+  <style>
+#cookie {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 90px;
+  height: 90px;
+  cursor: pointer;
+  animation: spin 6s linear infinite;
+  z-index: 9999;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+#cookieModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+#cookieBox {
+  background: black;
+  border: 3px dashed lime;
+  padding: 20px;
+  font-family: "Courier New", monospace;
+  color: lime;
+  max-width: 420px;
+}
+</style>
+
+<!-- 🍪 KEKSI -->
+<img id="cookie"
+src="https://upload.wikimedia.org/wikipedia/commons/7/70/Chocolate_Chip_Cookie.png">
+
+<!-- 🍪 MODAL -->
+<div id="cookieModal">
+  <div id="cookieBox">
+    <h3>EVÄSTEASETUKSET</h3>
+    <p>
+    Tämä sivu EI käytä seurantaa.<br>
+    Ei analytiikkaa.<br>
+    Ei profilointia.<br>
+    Ei mitään.
+    </p>
+
+    <p style="margin-top:20px">
+    "Älä itke ruma lapsi,<br>
+    ei sul oo iso pää.<br>
+    Ota keksi."
+    </p>
+
+    <button onclick="closeCookie()">OK</button>
+  </div>
+</div>
+
+<script>
+const cookie = document.getElementById("cookie");
+const modal = document.getElementById("cookieModal");
+
+cookie.onclick = () => modal.style.display = "flex";
+function closeCookie(){
+  modal.style.display = "none";
+}
+</script>
 </body>
 </html>
