@@ -368,7 +368,7 @@
         <a href="https://fiksiribu.fi/" target="_blank" rel="noreferrer">Fiksiribu fiksaa sutki</a><br />
         <a href="https://github.com/riburabu" target="_blank" rel="noreferrer">My qithub</a><br />
         <a href="https://liminall.fi/" target="_blank" rel="noreferrer">Liminall productions</a><br />
-        <a href="#" onclick="alert('Guestbook is totally real (not).'); return false;">Sign my guestbook</a><br />
+        <a href="#" onclick="alert('Guestbook is totally real.'); return false;">Sign my guestbook</a><br />
         <a href="#" onclick="alert('You are the 90s now.'); return false;">Download FREE RAM</a><br />
         <a href="#" onclick="alert('What are you doing?'); return false;">Join my web ring</a>
       </p>
@@ -575,17 +575,14 @@
 #cookie::before {
   content: "";
   position: absolute;
-  width: 10px;
-  height: 10px;
-  background: #3b1f0f;
+  inset: 0;
   border-radius: 50%;
-  top: 20px;
-  left: 25px;
-  box-shadow:
-    20px 10px #3b1f0f,
-    35px 25px #3b1f0f,
-    15px 40px #3b1f0f,
-    45px 45px #3b1f0f;
+  background:
+    radial-gradient(circle at 30% 35%, #3b1f0f 6px, transparent 7px),
+    radial-gradient(circle at 60% 30%, #3b1f0f 6px, transparent 7px),
+    radial-gradient(circle at 45% 55%, #3b1f0f 6px, transparent 7px),
+    radial-gradient(circle at 70% 65%, #3b1f0f 6px, transparent 7px),
+    radial-gradient(circle at 35% 70%, #3b1f0f 6px, transparent 7px);
 }
 
 @keyframes float {
