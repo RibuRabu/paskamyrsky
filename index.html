@@ -562,14 +562,11 @@
  <style>
 #cookie {
   position: fixed;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #d2691e, #8b4513);
-  box-shadow: inset -6px -6px 0 rgba(0,0,0,.2);
-  cursor: pointer;
-  z-index: 9999;
-  animation: float 12s linear infinite, spin 10s linear infinite;
+  width: 120px;
+  height: 120px;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #cookie::before {
@@ -577,16 +574,22 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
+
   background:
+    radial-gradient(circle at 40% 35%, #d8893a, #b4631f),
     radial-gradient(circle at 30% 35%, #3b1f0f 6px, transparent 7px),
     radial-gradient(circle at 60% 30%, #3b1f0f 6px, transparent 7px),
     radial-gradient(circle at 45% 55%, #3b1f0f 6px, transparent 7px),
     radial-gradient(circle at 70% 65%, #3b1f0f 6px, transparent 7px),
     radial-gradient(circle at 35% 70%, #3b1f0f 6px, transparent 7px);
-    -webkit-mask:
-    radial-gradient(circle 25px at 110px 45px, transparent 98%, black 100%);
+
+  box-shadow: 0 12px 30px rgba(0,0,0,.5);
+
+  /* 🔥 PURAISU */
+  -webkit-mask:
+    radial-gradient(circle 30px at 110px 50px, transparent 99%, black 100%);
   mask:
-    radial-gradient(circle 25px at 110px 45px, transparent 98%, black 100%);
+    radial-gradient(circle 30px at 110px 50px, transparent 99%, black 100%);
 }
 
 @keyframes float {
