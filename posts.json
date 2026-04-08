@@ -1,0 +1,9 @@
+[
+  {
+    "slug": "eka-postaus",
+    "title": "Eka postaus: miksi blogi lisättiin",
+    "date": "2026-04-08",
+    "excerpt": "Tämä on pieni staattinen blogi, joka istuu suoraan nykyiseen retro-etu­sivuun ilman frameworkeja.",
+    "content_html": "<p>Tervetuloa blogiin 👋</p><p>Tämä on tarkoituksella kevyt toteutus: <strong>blog.html</strong> listaa postaukset tiedostosta <strong>posts.json</strong>, ja <strong>post.html</strong> avaa yksittäisen postauksen slug-parametrin perusteella.</p><p>Näin uuden tekstin julkaisu onnistuu yhdellä tiedostopäivityksellä ilman backend-muutoksia.</p>"
+  }
+]

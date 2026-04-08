@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paskamyrsky Blogi</title>
+<style>
+  :root{
+    --hotpink:#ff00ff;
+    --cyan:#00ffff;
+    --lime:#00ff66;
+    --yellow:#ffe100;
+    --bg1:#0a0012;
+    --bg2:#001022;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    min-height:100vh;
+    font-family:"Comic Sans MS","Comic Sans","Trebuchet MS",Arial,sans-serif;
+    color:#fff;
+    background:
+      radial-gradient(1200px 700px at 20% 20%, rgba(255,0,255,.18), transparent 60%),
+      radial-gradient(1200px 700px at 80% 30%, rgba(0,255,255,.14), transparent 60%),
+      linear-gradient(135deg, var(--bg1), var(--bg2));
+  }
+  .wrap{ max-width: 920px; margin: 28px auto 50px; padding: 0 14px; }
+  .panel{
+    background: rgba(0,0,0,.62);
+    border: 3px outset rgba(255,0,255,.55);
+    padding: 14px;
+  }
+  h1,h2{ margin:0 0 10px; }
+  h1{ text-shadow: 0 0 10px rgba(0,255,255,.5), 0 0 14px rgba(255,0,255,.35); }
+  .lead{ opacity:.9; }
+  .btn{
+    display:inline-block;
+    padding: 8px 10px;
+    border: 3px outset rgba(0,255,255,.65);
+    background: linear-gradient(180deg, rgba(0,255,255,.22), rgba(255,0,255,.18));
+    color:#fff;
+    text-decoration:none;
+    font-weight:700;
+    margin-right:8px;
+    margin-bottom:8px;
+  }
+  .post{
+    border:2px dashed #ffe10088;
+    padding:12px;
+    background:rgba(0,0,0,.45);
+    margin-top:10px;
+  }
+  .post a{ color: var(--yellow); }
+  .date{ font-family:"Courier New",monospace; color:#9ef; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="panel">
+    <h1>Paskamyrskyn blogi</h1>
+    <p class="lead">Pieni, staattinen blogi ilman frameworkeja. Pure 90s energy.</p>
+    <a class="btn" href="index.html">← Takaisin etusivulle</a>
+    <a class="btn" href="post.html?slug=eka-postaus">Avaa uusin postaus</a>
+  </section>
+
+  <section class="panel" style="margin-top:14px;">
+    <h2>Postaukset</h2>
+    <div id="postList">Ladataan...</div>
+  </section>
+</div>
+
+<script>
+(function(){
+  const listEl = document.getElementById("postList");
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  async function load(){
+    try{
+      const r = await fetch("posts.json", { cache: "no-store" });
+      const posts = await r.json();
+      render(posts);
+    }catch(e){
+      listEl.innerHTML = "<div style='opacity:.8;color:#f88;'>Postausten lataus epäonnistui.</div>";
+    }
+  }
+
+  function render(posts){
+    if (!Array.isArray(posts) || !posts.length){
+      listEl.innerHTML = "<div style='opacity:.7;'>Ei postauksia vielä.</div>";
+      return;
+    }
+
+    const sorted = [...posts].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+    listEl.innerHTML = "";
+
+    for (const p of sorted){
+      const div = document.createElement("article");
+      div.className = "post";
+      div.innerHTML =
+        "<h3><a href='post.html?slug=" + encodeURIComponent(p.slug) + "'>" + esc(p.title) + "</a></h3>" +
+        "<div class='date'>" + esc(p.date) + "</div>" +
+        "<p>" + esc(p.excerpt || "") + "</p>";
+      listEl.appendChild(div);
+    }
+  }
+
+  load();
+})();
+</script>
+</body>
+</html>
