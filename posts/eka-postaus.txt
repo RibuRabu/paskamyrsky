@@ -1,0 +1,6 @@
+Tervetuloa blogiin 👋
+
+Nyt sisältöä voi kirjoittaa suoraan tekstitiedostoon ilman JSON-escapeja.
+Rivinvaihdot toimivat Enterillä.
+
+Jos haluat tarkkaa HTML-muotoilua, voit edelleen käyttää posts.jsonissa content_html-kenttää.
