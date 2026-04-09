@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="fi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Postaus • Paskamyrsky</title>
+<style>
+  :root{ --hotpink:#ff00ff; --cyan:#00ffff; --yellow:#ffe100; --bg1:#0a0012; --bg2:#001022; }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    min-height:100vh;
+    color:#fff;
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    background:
+      radial-gradient(1200px 700px at 20% 20%, rgba(255,0,255,.18), transparent 60%),
+      radial-gradient(1200px 700px at 80% 30%, rgba(0,255,255,.14), transparent 60%),
+      linear-gradient(135deg, var(--bg1), var(--bg2));
+  }
+  .wrap{ max-width: 860px; margin: 28px auto 50px; padding: 0 14px; }
+  .panel{ background: rgba(0,0,0,.62); border: 3px outset rgba(255,0,255,.55); padding: 16px; }
+  .btn{
+    display:inline-block; padding: 8px 10px; border: 3px outset rgba(0,255,255,.65);
+    background: linear-gradient(180deg, rgba(0,255,255,.22), rgba(255,0,255,.18)); color:#fff;
+    text-decoration:none; font-weight:700; margin-right:8px; margin-bottom:8px;
+  }
+  .meta{ font-family:"Courier New",monospace; color:#9ef; margin-bottom:12px; }
+  article{ line-height:1.6; }
+  article a{ color: var(--yellow); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="panel">
+    <a class="btn" href="blog.html">← Blogiin</a>
+    <a class="btn" href="index.html">Etusivu</a>
+    <h1 id="title">Ladataan...</h1>
+    <div class="meta" id="meta"></div>
+    <article id="content"></article>
+  </section>
+</div>
+
+<script>
+(function(){
+  const titleEl = document.getElementById("title");
+  const metaEl = document.getElementById("meta");
+  const contentEl = document.getElementById("content");
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  function textToHtml(s){
+    const normalized = String(s).replace(/\r\n/g, "\n");
+    return normalized
+      .split(/\n\n+/)
+      .map(part => "<p>" + esc(part).replace(/\n/g, "<br>") + "</p>")
+      .join("");
+  }
+
+  function parsePosts(raw){
+    try{
+      return JSON.parse(raw);
+    }catch(_e){
+      const repaired = raw.replace(
+        /"content"\s*:\s*"([\s\S]*?)"\s*(?=\n\s*})/g,
+        (_m, content) => {
+          const safe = content
+            .replace(/\\/g, "\\\\")
+            .replace(/"/g, "\\\"")
+            .replace(/\r?\n/g, "\\n");
+          return `"content": "${safe}"`;
+        }
+      );
+      return JSON.parse(repaired);
+    }
+  }
+
+  function getSlug(){
+    const url = new URL(window.location.href);
+    return url.searchParams.get("slug") || "";
+  }
+
+  async function load(){
+    const slug = getSlug();
+    if (!slug){
+      titleEl.textContent = "Postausta ei löytynyt";
+      contentEl.innerHTML = "<p>Slug puuttuu URL-parametrista.</p>";
+      return;
+    }
+
+    try{
+      const r = await fetch("posts.json", { cache: "no-store" });
+      const raw = await r.text();
+      const posts = parsePosts(raw);
+      const post = Array.isArray(posts) ? posts.find(p => p.slug === slug) : null;
+
+      if (!post){
+        titleEl.textContent = "Postausta ei löytynyt";
+        metaEl.textContent = "Slug: " + slug;
+        contentEl.innerHTML = "<p>Tarkista linkki tai palaa blogilistaan.</p>";
+        return;
+      }
+
+      titleEl.textContent = post.title;
+      metaEl.textContent = post.date;
+      if (post.content_html){
+        contentEl.innerHTML = post.content_html;
+      }else if (post.content_file){
+        const contentResp = await fetch(post.content_file, { cache: "no-store" });
+        const contentText = await contentResp.text();
+        contentEl.innerHTML = textToHtml(contentText);
+      }else if (post.content){
+        contentEl.innerHTML = textToHtml(post.content);
+      }else{
+        contentEl.innerHTML = "<p>" + esc(post.excerpt || "") + "</p>";
+      }
+      document.title = post.title + " • Paskamyrsky";
+    }catch(e){
+      titleEl.textContent = "Virhe";
+      contentEl.innerHTML = "<p>Postauksen lataus epäonnistui.</p>";
+    }
+  }
+
+  load();
+})();
+</script>
+</body>
+</html>
