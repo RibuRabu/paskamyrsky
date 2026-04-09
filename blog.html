@@ -77,13 +77,32 @@
     return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   }
 
+  function parsePosts(raw){
+    try{
+      return JSON.parse(raw);
+    }catch(_e){
+      const repaired = raw.replace(
+        /"content"\s*:\s*"([\s\S]*?)"\s*(?=\n\s*})/g,
+        (_m, content) => {
+          const safe = content
+            .replace(/\\/g, "\\\\")
+            .replace(/"/g, "\\\"")
+            .replace(/\r?\n/g, "\\n");
+          return `"content": "${safe}"`;
+        }
+      );
+      return JSON.parse(repaired);
+    }
+  }
+
   async function load(){
     try{
       const r = await fetch("posts.json", { cache: "no-store" });
-      const posts = await r.json();
+      const raw = await r.text();
+      const posts = parsePosts(raw);
       render(posts);
-    }catch(e){
-      listEl.innerHTML = "<div style='opacity:.8;color:#f88;'>Postausten lataus epäonnistui.</div>";
+    }catch(err){
+      listEl.innerHTML = "<div style='opacity:.8;color:#f88;'>Postausten lataus epäonnistui. Tarkista posts.json rakenne.</div>";
     }
   }
 

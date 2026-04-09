@@ -1,25 +1,9 @@
 [
   {
     "slug": "eka-postaus",
-    "title": "Kukaan ei ole kiinnostunut sinusta",
-    "date": "2026-04-0",
-    "excerpt": "Söpö pieni alotus",
-    "content": "Koska kukaan ei kuitenkaan lue tätä, niin on varsin turvallista kirjotella tänne lähes mitä sattuu. Suurin antipatia nykyään minulla onkin se, että kukaan ei ole kiinnostunut, eikä kukaan välitä.
-    Ja se on totta.
-
-    Ja siksi se on surullista. Kukaan ei välitä, paitsi itsestään. Ja sekin on hassua, että aidosti siinäkään ei välitetä itsestään, vaan välitetään omista eduistaan. 
-
-    Olen ollut hierojana nyt ammattimaisesti vuodesta 2021, jolloin valmistuin koulutetuksi hierojaksi. Aluksi jaksoin hirveästi jakaa tietoa ihmisille, kunnes väsyin. Taisi yksi asiakaskin sanoa, että annan liikaa. Taisi vielä sanoa, että menee pää pyörälle.
-    Onhan se totta. Ylitän usein itseni, myös tiedonannossa, mutta validi pointti oli siinä, ettei kukaan halua tietoa ILMAISEKSI. Tai haluaa, minä haluan. Minä olen elänyt köyhyydessä koko aikuisikäni, kun muutin omilleni. Eikä kotopuolessakaan rahassa kylvetty, mutta meillä oli asiat hyvin.
-    Köyhyys on antanut minulle niin paljon. Esimerkiksi kyvyn ratkoa ongelmia, tai oikeammin olosuhteita, jotka ovat mahdottomat. Köyhyys on tehnyt minusta siis nerokkaan. Koska monesti vaihtoehdot ovat olleet että joko tehdään, tai ei tehdä.
-    Ja jos haluat tehdä, sinun tulee kiertää olosuhde, jonka nimi on köyhyys. Joskus joku asiakas on kysynyt että mistä olen oppinut sen, niin päädyin vastaamaan että "köyhyys on opettanut".
-
-    Ilmainen on yhtä kuin roska. Ja sen olen huomannut. Ihmiset eivät osaa arvostaa ilmaiseksi saamaansa tavaraa tai palvelua. En kyllä ymmärrä mikä siinä on. 
-
-    Olen myös miettinyt tältä kantilta omaa hinnotteluani. Olen äärettömän halpa. Olen halvimpia hierojia, jotka itse tiedän, mutta minulla on paha allergia. Se on että olen allerginen erillaisille välistävetäjille.
-    Esimerkiksi E-passi. He kirjaimellisesti eivät tee hierojien eteen YHTÄÄN mitään ja silti ottavat 6% komisiota siitä että joku käyttää E-passia. Aika sairasta sanoisin. 
-    Olen myös ollut töissä "isännällä" eli hierontayrityksen alaisena, tehden töitä renkinä. Se vasta perseestä olikin, koska vain se, että TEIN TYÖTÄNI toisen tiloissa, maksoi se minulle 25% tuloistani siellä. Se vasta sairasta olikin.
-    Siinä on myös sellainen pikku aspekti, kuin työnantajamaksujen kiertäminen ja he kutsuvat sitä "vuokratuoliksi". Huijausta ja toisen selkänahkasta rahan vetämistä sanon minä.
-    Ehkä joku päivä minäkin luovun ideologiastani ja alan tienaamaan niin, että kaikki voisivat vaan ottaa välistä ja rahaa jää vielä hullutteluunkin."
+    "title": "Eka postaus: miksi blogi lisättiin",
+    "date": "2026-04-08",
+    "excerpt": "Tämä on pieni staattinen blogi, joka istuu suoraan nykyiseen retro-etu­sivuun ilman frameworkeja.",
+    "content_file": "posts/eka-postaus.txt"
   }
 ]
