@@ -1,0 +1,9 @@
+[
+  {
+    "slug": "eka-postaus",
+    "title": "Eka postaus: miksi blogi lisättiin",
+    "date": "2026-04-08",
+    "excerpt": "Tämä on pieni staattinen blogi, joka istuu suoraan nykyiseen retro-etu­sivuun ilman frameworkeja.",
+    "content": "Tervetuloa blogiin 👋\nTässä saat rivinvaihdot ihan normaalilla Enterillä.\n\nVoit edelleen käyttää content_html-kenttää, jos haluat tarkkaa HTML-muotoilua."
+  }
+]
