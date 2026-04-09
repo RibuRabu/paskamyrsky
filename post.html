@@ -50,6 +50,10 @@
     return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   }
 
+  function textToHtml(s){
+    return esc(s).replace(/\n/g, "<br>");
+  }
+
   function getSlug(){
     const url = new URL(window.location.href);
     return url.searchParams.get("slug") || "";
@@ -77,7 +81,13 @@
 
       titleEl.textContent = post.title;
       metaEl.textContent = post.date;
-      contentEl.innerHTML = post.content_html || ("<p>" + esc(post.excerpt || "") + "</p>");
+      if (post.content_html){
+        contentEl.innerHTML = post.content_html;
+      }else if (post.content){
+        contentEl.innerHTML = "<p>" + textToHtml(post.content) + "</p>";
+      }else{
+        contentEl.innerHTML = "<p>" + esc(post.excerpt || "") + "</p>";
+      }
       document.title = post.title + " • Paskamyrsky";
     }catch(e){
       titleEl.textContent = "Virhe";
