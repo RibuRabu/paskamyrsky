@@ -51,11 +51,7 @@
   }
 
   function textToHtml(s){
-    const normalized = String(s).replace(/\r\n/g, "\n");
-    return normalized
-      .split(/\n\n+/)
-      .map(part => "<p>" + esc(part).replace(/\n/g, "<br>") + "</p>")
-      .join("");
+    return esc(s).replace(/\n/g, "<br>");
   }
 
   function getSlug(){
@@ -87,12 +83,8 @@
       metaEl.textContent = post.date;
       if (post.content_html){
         contentEl.innerHTML = post.content_html;
-      }else if (post.content_file){
-        const contentResp = await fetch(post.content_file, { cache: "no-store" });
-        const contentText = await contentResp.text();
-        contentEl.innerHTML = textToHtml(contentText);
       }else if (post.content){
-        contentEl.innerHTML = textToHtml(post.content);
+        contentEl.innerHTML = "<p>" + textToHtml(post.content) + "</p>";
       }else{
         contentEl.innerHTML = "<p>" + esc(post.excerpt || "") + "</p>";
       }
